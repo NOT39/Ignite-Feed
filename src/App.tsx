@@ -1,6 +1,6 @@
 import { Header, Post, Sidebar } from "./components"
 
-import styles from './app.module.css'
+import styles from './App.module.css'
 
 export const App = () => {
 
@@ -13,14 +13,8 @@ export const App = () => {
         <Sidebar />
         
         <main>
-          <Post 
-            author="Not"
-            content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni sit sapiente quam officiis itaque, at vero cupiditate nihil dolor fugit? Necessitatibus sint tempora, eaque qui officia maxime non inventore quasi?"
-          />
-          <Post 
-            author="Luna"
-            content="Mais um post"
-          />
+          <Post />
+          <Post />
         </main>
       </div>
     </div>
