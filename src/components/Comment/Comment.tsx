@@ -1,32 +1,63 @@
 import { ThumbsUp, Trash } from 'phosphor-react'
-import { Avatar } from '../Avatar/Avatar'
-import styles from './Comment.module.css'
+import { format, formatDistanceToNow} from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export const Comment = () => {
+import { Avatar } from '../Avatar/Avatar'
+import { PostProps } from '../Post/Post'
+
+import styles from './Comment.module.css'
+import { useState } from 'react'
+
+export interface CommentProps extends Omit<PostProps, 'comments' | 'content'> {
+  content: string
+  onDeleteComment: (componentId: number) => void
+}
+
+export const Comment = ({id, author, content, publishedAt, onDeleteComment}: CommentProps) => {  
+  const [ likeCount, setLikeCounts ] = useState(0)
+  
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR
+  })
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR, 
+    addSuffix: true
+  })
+
+  function handleDeleteComment(id: number) {
+    return () => onDeleteComment(id)
+  }
+
+  function handleLikeComment() {
+    setLikeCounts(prevLikeCount => prevLikeCount + 1)
+  }
+
+  
   return (
     <div className={styles.comment}>
-      <Avatar noBorder src="https://github.com/not39.png"/>
+      <Avatar noBorder src={author.avatarUrl}/>
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Not</strong>
-              <time title="20 de Fevereiro às 12:48h" dateTime="2023-02-20 12:48:36">Cerca de 1h atrás</time>
+              <strong>{author.name}</strong>
+              <time title={publishedDateFormatted} dateTime={publishedAt.toDateString()}>{publishedDateRelativeToNow}</time>
             </div>
             
-            <button title='Deletar comentário'>
+            <button onClick={handleDeleteComment(id)} title='Deletar comentário'>
               <Trash size={24}/>
             </button>
           </header>
 
-          <p>Muito bom, parabéns!!</p>
+          <p>{content}</p>
         </div>
 
         <footer>
-          <button>
+          <button onClick={handleLikeComment}>
             <ThumbsUp />
-            Aplaudir <span>20</span>
+            Aplaudir <span>{likeCount}</span>
           </button>
         </footer>
       </div>

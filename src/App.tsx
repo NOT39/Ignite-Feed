@@ -1,4 +1,5 @@
-import { Header, Post, Sidebar } from "./components"
+import { Header, Post, Sidebar } from './components'
+import { posts } from './mock'
 
 import styles from './App.module.css'
 
@@ -13,8 +14,18 @@ export const App = () => {
         <Sidebar />
         
         <main>
-          <Post />
-          <Post />
+          {posts.map((post) => {
+            return (
+              <Post 
+                key={post.id} 
+                id={post.id}
+                author={post.author} 
+                content={post.content} 
+                publishedAt={post.publishedAt}
+                comments={post.comments}
+              />
+            )
+          })}
         </main>
       </div>
     </div>
