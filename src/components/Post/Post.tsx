@@ -52,12 +52,12 @@ export const Post = ({author, publishedAt, content, comments}: PostProps) => {
     setNewCommentText('')
   }
 
-  function handleNewCommentChange(e: ChangeEvent) {
+  function handleNewCommentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity('')
     setNewCommentText(e.target.value)
   }
  
-  function handleNewCommentInvalid(e: InvalidEvent) {
+  function handleNewCommentInvalid(e: InvalidEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
