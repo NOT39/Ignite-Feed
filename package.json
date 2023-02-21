@@ -2,14 +2,13 @@
   "name": "ignite-feed",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://not39.github.io/Ignite-Feed",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "date-fns": "^2.29.3",
